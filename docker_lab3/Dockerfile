@@ -1,6 +1,6 @@
-FROM geny952/custom-nginx:1.0.2
+FROM nginx:latest
 WORKDIR /app
-COPY /index.hml /usr/share/nginx/html/index.html
 COPY . .
+COPY index.html /usr/share/nginx/html/
 EXPOSE 8080
 RUN echo "Goodbye my honey world"
