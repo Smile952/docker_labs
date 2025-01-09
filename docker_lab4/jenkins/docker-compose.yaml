@@ -1,0 +1,24 @@
+services:
+  jenkins:
+    image: jenkins/jenkins:lts-jdk17
+    ports:
+      - "8080:8080"
+      - "50000:50000"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - jenkins_home:/var/jenkins_home
+    user: root
+    
+  agent:
+    image: jenkins/ssh-agent:alpine-jdk17
+    container_name: agent1
+    ports:
+      - "22:22"
+    environment:
+      - "JENKINS_AGENT_SSH_PUBKEY=ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDMIZvtELqScJ4OaQehu7jxP7SxHQaQlsqyZ0RBwVz8w05tLBDc4EA7IcaqR9XPM6RPitkxCFnQTLL1tOMpqhE39dmGfK0+TXe54+aeItU8COMbK2VwwNR1V0yk3IbWaaVlM3SBEZmp2gTSU0oVWbXrYoO9d8uEDNP84s1pA5LMIFPcPNx+sywhqHWZuKi7NaG93czAvgy2+dYioyPLLObcbBPtal8YYlIq7KhwGo9QrK1WPQAxKDc6su19WuevQ0kXcrpm4N5IvtihY/fahxYUiPPaOF/j0hmMcJfry/zfY5C6XGCScQLJEAnW+cT9etLWL8CK4Itl76h2zjwJyL57f+YjS7xK4NbA16nsf/OH4uTzMceJmr4zDCyBbz5t8Q2aNqr6/54I+3wM8opGBq8fnw2TBMf/1Drn9z5MSAHBsCQRHGvhVrYCh0peha0fq9bm9oYxukmRmh6t+hB90fyH8Gd4JkzWq4EYccxTXCZRcMcGJ6wPH7aWVSqRHX/d/UE= kheragacy@DESKTOP-066OQ84"
+
+
+volumes:
+  jenkins_home:
+    external: true
+  
